@@ -1,0 +1,42 @@
+{
+  "name": "fastify-mariadb",
+  "version": "0.0.1",
+  "description": "Fastify MariaDB connection pool plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/*.test.js",
+    "lint": "eslint \"{,test/}*.js\"",
+    "lint:fix": "eslint --fix \"{,test/}*.js\"",
+    "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
+    "clean": "rm -rf node_modules && rm -f package-lock.json",
+    "rebuild": "npm run clean && npm install && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victor0801x/fastify-mariadb.git"
+  },
+  "keywords": [
+    "fastify",
+    "mariadb",
+    "mysql",
+    "database",
+    "pool",
+    "sql"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/victor0801x/fastify-mariadb/issues"
+  },
+  "homepage": "https://github.com/victor0801x/fastify-mariadb#readme",
+  "dependencies": {
+    "fastify-plugin": "^1.3.0",
+    "mariadb": "^2.0.1-beta",
+    "sqlstring": "^2.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-google": "^0.11.0",
+    "fastify": "^1.13.1",
+    "tap": "^12.1.0"
+  }
+}
