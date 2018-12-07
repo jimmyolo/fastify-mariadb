@@ -1,6 +1,6 @@
 {
   "name": "fastify-mariadb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fastify MariaDB connection pool plugin",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "mariadb",
     "mysql",
     "database",
-    "pool",
+    "connection pool",
     "sql"
   ],
   "license": "MIT",
