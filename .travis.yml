@@ -1,0 +1,23 @@
+language: node_js
+
+node_js:
+  - "11"
+  - "10"
+  - "8"
+  - "6"
+
+services:
+  - docker
+
+before_script:
+  - sudo /etc/init.d/mysql stop # - sudo systemctl stop mysql
+  - npm run mariadb
+
+script:
+  - npm run lint
+  - npm run test
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
