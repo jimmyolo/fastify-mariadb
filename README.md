@@ -1,4 +1,7 @@
 # Fastify MariaDB Pool plugin
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/victor0801x/fastify-mariadb.svg)](https://greenkeeper.io/)
+
 Fastify MariaDB connection Pool plugin, with this you can share the same MariaDB connection pool in every part of your server.
 
 Under the hood the offical [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
