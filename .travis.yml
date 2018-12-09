@@ -12,10 +12,14 @@ services:
 before_script:
   - sudo /etc/init.d/mysql stop # - sudo systemctl stop mysql
   - npm run mariadb
+  - npm install -g codecov
 
 script:
   - npm run lint
   - npm run test
+
+after_script:
+  - codecov
 
 notifications:
   email:

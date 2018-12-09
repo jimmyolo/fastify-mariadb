@@ -32,8 +32,7 @@ function fastifyMariadb(fastify, options, next) {
       fastify.decorate('mariadb', {});
     }
     if (fastify.mariadb[name]) {
-      next(new Error('fastify.mariadb.' + name + ' has already registered'));
-      return;
+      return next(new Error('fastify.mariadb.' + name + ' has already registered'));
     }
     fastify.mariadb[name] = db;
   } else {

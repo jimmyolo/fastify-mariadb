@@ -1,4 +1,12 @@
 # Fastify MariaDB Pool plugin
+<!--
+[![NPM](https://nodei.co/npm/fastify-mariadb.png??downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/fastify-mariadb)
+-->
+[![Build Status](https://travis-ci.org/victor0801x/fastify-mariadb.svg?branch=master)](https://travis-ci.org/victor0801x/fastify-mariadb)
+[![npm version](https://img.shields.io/npm/v/fastify-mariadb.svg?style=flat-square)](https://www.npmjs.com/package/fastify-mariadb)
+[![npm downloads](https://img.shields.io/npm/dm/fastify-mariadb.svg?style=flat-square)](https://www.npmjs.com/package/fastify-mariadb)
+[![codecov](https://codecov.io/gh/victor0801x/fastify-mariadb/branch/master/graph/badge.svg)](https://codecov.io/gh/victor0801x/fastify-mariadb)
+
 Fastify MariaDB connection Pool plugin, with this you can share the same MariaDB connection pool in every part of your server.
 
 Under the hood the offical [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
