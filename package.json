@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tap 'test/*.test.js'",
-    "codecov:ci": "tap 'test/*.test.js' --cov --coverage-report=text-lcov && codecov",
+    "codecov:ci": "tap 'test/*.test.js' --cov --coverage-report=lcov && codecov",
     "codecov:html": "tap 'test/*.test.js' --cov --coverage-report=html",
     "lint": "eslint '{,test/}*.js'",
     "lint:fix": "eslint --fix '{,test/}*.js'",
