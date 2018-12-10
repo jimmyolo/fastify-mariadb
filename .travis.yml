@@ -17,7 +17,9 @@ script:
   - npm run lint
   - npm test
 
-after_script:
+#after_script:
+#  - npm run codecov:ci
+after_success:
   - npm run codecov:ci
 
 notifications:
