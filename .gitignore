@@ -1,3 +1,7 @@
+.vscode
+coverage
+.nyc_output
+
 # Logs
 logs
 *.log
