@@ -18,7 +18,7 @@ npm install fastify-mariadb --save
 ```
 
 ## Usage
-Add it to you project with `register` and you are done!
+Add it to your project with `register` and you are done!
 This plugin will add the `mariadb` namespace in your Fastify instance, with the following properties:
 
 ```
