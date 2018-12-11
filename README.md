@@ -13,11 +13,13 @@ Fastify MariaDB connection Pool plugin, with this you can share the same MariaDB
 Under the hood the offical [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
 
 ## Install
+
 ```
 npm install fastify-mariadb --save
 ```
 
 ## Usage
+
 Add it to your project with `register` and you are done!
 This plugin will add the `mariadb` namespace in your Fastify instance, with the following properties:
 
@@ -39,24 +41,27 @@ Example:
 const fastify = require('fastify');
 
 fastify.register(require('fastify-mariadb'), {
-  connectionString: 'mariadb://root@localhost/mysql'
+  host: 'localhost',
+  user: 'root',
+  database: 'mysql',
+  connectionLimit: 5,
 });
 
 fastify.get('/user/:id', (req, reply) => {
-  // use pool.getConnection -> conn.query -> conn.release
+  // `pool.getConnection` -> `conn.query` -> `conn.release`
   fastify.mariadb.getConnection((err, conn) => {
     if (err) return reply.send(err);
-    conn.query('SELECT id, username FROM users WHERE id=?', [req.params.id], function onResult (err, result) {
+    conn.query('SELECT username FROM users WHERE id=?', [req.params.id], (err, result) => {
       client.release();
       reply.send(err || result);
     });
   });
+});
 
-  // or, just use `pool.query`
-  fastify.get('/ping/mariadb', (req, reply) => {
-  fastify.mariadb.query('SELECT now()', function onResult (err, result) {
-      reply.send(err || result)
-    });
+fastify.get('/mariadb/time', (req, reply) => {
+  // `pool.query`
+  fastify.mariadb.query('SELECT now()', (err, result) => {
+    reply.send(err || result)
   });
 });
 
@@ -73,13 +78,13 @@ const fastify = require('fastify');
 
 fastify.register(require('fastify-mariadb'), {
   promise: true,
-  connectionString: 'mariadb://root@localhost/mysql'
+  connectionString: 'mariadb://root@localhost/mysql',
 });
 
 fastify.get('/user/:id', async (req, reply) => {
   const connection = await fastify.mariadb.getConnection();
-  const result = await connection.query(
-    'SELECT id, username FROM users WHERE id=?', [req.params.id],
+  const result = await fastify.mariadb.query(
+    'SELECT username FROM users WHERE id=?', [req.params.id],
   );
   connection.release();
   return result[0];
@@ -92,7 +97,8 @@ fastify.listen(3000, (err) => {
 ```
 
 ## options
-* `usePromise` - `Boolean` (optional, if not present will use `callback` style pool)
+
+* `promise` - `Boolean` (optional, if not present will use `callback` style pool)
 * `connectionString` - `String` (optional)
 * `native Pool options` - see offical documents [MariaDB connector/Node.js](https://mariadb.com/kb/en/library/about-mariadb-connector-nodejs/)
   * [`Promise API`](https://github.com/MariaDB/mariadb-connector-nodejs/blob/master/documentation/promise-api.md#promise-api)
@@ -100,8 +106,9 @@ fastify.listen(3000, (err) => {
 
 ## Acknowledgements
 
-Most of code is copy from [fastify-mysql](https://github.com/fastify/fastify-mysql).
-Since some `MariaDB connetor/Node.js` is not compatible to `mysql` or `mysql2`.
+Most of codes are copy from [fastify-mysql](https://github.com/fastify/fastify-mysql).  
+And, most options are similar to `mysql`/`mysql2` driver with more feature and performant. 
+
 
 ## License
 

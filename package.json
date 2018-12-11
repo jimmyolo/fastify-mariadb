@@ -25,6 +25,7 @@
     "connection pool",
     "sql"
   ],
+  "author": "Jimmy Huang <jimmy.huang@concords.com.tw>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/victor0801x/fastify-mariadb/issues"
