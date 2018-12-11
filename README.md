@@ -107,7 +107,7 @@ fastify.listen(3000, (err) => {
 ## Acknowledgements
 
 Most of codes are copy from [fastify-mysql](https://github.com/fastify/fastify-mysql).  
-And, most options are similar to `mysql`/`mysql2` driver with more feature and performant. 
+`MariaDB connector/Node.js` most options are similar to `mysql`/`mysql2` driver with more features and performant. 
 
 
 ## License
