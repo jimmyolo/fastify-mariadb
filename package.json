@@ -4,9 +4,9 @@
   "description": "Fastify MariaDB connection Pool plugin",
   "main": "index.js",
   "scripts": {
-    "test": "tap 'test/*.test.js' --cov --coverage-report=lcov --no-browser",
-    "codecov:ci": "tap --coverage-report=lcov && codecov",
-    "codecov:html": "tap --coverage-report=html",
+    "test": "tap 'test/*.test.js' --cov",
+    "codecov:upload": "tap 'test/*.test.js' --coverage-report=lcov && codecov",
+    "codecov:html": "tap 'test/*.test.js' --coverage-report=html",
     "lint": "eslint '{,test/}*.js'",
     "lint:fix": "eslint --fix '{,test/}*.js'",
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",

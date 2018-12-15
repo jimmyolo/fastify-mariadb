@@ -12,9 +12,7 @@ function fastifyMariadb(fastify, options, next) {
 
   const mysql = usePromise ? require('mariadb/promise') : require('mariadb/callback');
 
-  const pool = (options.pool)
-    ? options.pool
-    : mysql.createPool(options.connectionString || options);
+  const pool = mysql.createPool(options.connectionString || options);
 
   const db = {
     pool,
