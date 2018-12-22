@@ -3,20 +3,13 @@
 const fp = require('fastify-plugin');
 const { format, escape, escapeId } = require('sqlstring');
 
-function fastifyMariadb(fastify, options, next) {
-  const name = options.name;
-  delete options.name;
-
+function activatePool(options, cb) {
   const usePromise = options.promise;
   delete options.promise;
 
   const mysql = usePromise ? require('mariadb/promise') : require('mariadb/callback');
-
-  const pool = (options.pool)
-    ? options.pool
-    : mysql.createPool(options.connectionString || options);
-
-  const db = {
+  const pool = mysql.createPool(options.connectionString || options);
+  const fastifyPool = {
     pool,
     query: pool.query.bind(pool),
     getConnection: pool.getConnection.bind(pool),
@@ -26,30 +19,50 @@ function fastifyMariadb(fastify, options, next) {
       escapeId,
     },
   };
-
-  if (name) {
-    if (!fastify.mariadb) {
-      fastify.decorate('mariadb', {});
-    }
-    if (fastify.mariadb[name]) {
-      return next(new Error('fastify.mariadb.' + name + ' has already registered'));
-    }
-    fastify.mariadb[name] = db;
-  } else {
-    if (fastify.mariadb) {
-      return next(new Error('fastify.mariadb has already registered'));
-    } else {
-      fastify.mariadb = db;
-    }
-  }
-
   if (usePromise) {
-    fastify.addHook('onClose', (fastify) => pool.end());
+    pool.query('select 1')
+      .then(() => cb(null, fastifyPool))
+      .catch((err) => cb(err, null));
   } else {
-    fastify.addHook('onClose', (fastify, done) => pool.end(done));
+    pool.query('select 1', (err) => cb(err, fastifyPool));
   }
+}
 
-  next();
+function fastifyMariadb(fastify, options, next) {
+  const name = options.name;
+  delete options.name;
+
+  const usePromise = options.promise;
+
+  activatePool(options, (err, fastifyPool) => {
+    if (err) return next(err);
+
+    const pool = fastifyPool.pool;
+
+    if (usePromise) {
+      fastify.addHook('onClose', (fastify) => pool.end());
+    } else {
+      fastify.addHook('onClose', (fastify, done) => pool.end(done));
+    }
+
+    if (name) {
+      if (!fastify.mariadb) {
+        fastify.decorate('mariadb', {});
+      }
+      if (fastify.mariadb[name]) {
+        return next(new Error('fastify.mariadb.' + name + ' has already registered'));
+      }
+      fastify.mariadb[name] = fastifyPool;
+    } else {
+      if (fastify.mariadb) {
+        return next(new Error('fastify.mariadb has already registered'));
+      } else {
+        fastify.mariadb = fastifyPool;
+      }
+    }
+
+    next();
+  });
 }
 
 module.exports = fp(fastifyMariadb, {

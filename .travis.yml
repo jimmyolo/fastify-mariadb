@@ -18,9 +18,9 @@ script:
   - npm test
 
 #after_script:
-#  - npm run codecov:ci
+#  - npm run codecov:upload
 after_success:
-  - npm run codecov:ci
+  - npm run codecov:upload
 
 notifications:
   email:
