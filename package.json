@@ -11,8 +11,8 @@
     "lint": "eslint '{,test/}*.js'",
     "lint:fix": "eslint --fix '{,test/}*.js'",
     "clear": "npm run clear:node && npm run clear:test",
-    "clear:node": "rm -rf '{node_modules,package-lock.json}'",
-    "clear:test": "rm -rf '{.nyc_output,coverage}'",
+    "clear:node": "rm -rf {node_modules,package-lock.json}",
+    "clear:test": "rm -rf {.nyc_output,coverage}",
     "rebuild": "npm run clear && npm install && npm test && npm run clear:test"
   },
   "repository": {
