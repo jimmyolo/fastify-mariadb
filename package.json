@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tap 'test/*.test.js' --cov",
+    "test:cov": "tap 'test/*.test.js' --cov --coverage-report=lcov",
     "codecov:upload": "tap 'test/*.test.js' --coverage-report=lcov && codecov",
     "codecov:html": "tap 'test/*.test.js' --coverage-report=html",
     "lint": "eslint '{,test/}*.js'",
@@ -25,7 +26,7 @@
     "connection pool",
     "sql"
   ],
-  "author": "Jimmy Huang <jimmy.huang@concords.com.tw>",
+  "author": "Jimmy Huang <victor0801x@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/victor0801x/fastify-mariadb/issues"
