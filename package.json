@@ -1,18 +1,19 @@
 {
   "name": "fastify-mariadb",
-  "version": "0.0.5",
+  "version": "1.0.0-rc1",
   "description": "Fastify MariaDB connection Pool plugin",
   "main": "index.js",
   "scripts": {
-    "test": "tap 'test/*.test.js' --cov",
-    "test:cov": "tap 'test/*.test.js' --cov --coverage-report=lcov",
-    "codecov:upload": "tap 'test/*.test.js' --coverage-report=lcov && codecov",
-    "codecov:html": "tap 'test/*.test.js' --coverage-report=html",
+    "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
+    "test": "tap 'test/*.test.js' --cov --coverage-report=lcov -j2",
+    "codecov:upload": "tap --coverage-report=text-lcov && codecov",
+    "codecov:html": "tap --coverage-report=html",
     "lint": "eslint '{,test/}*.js'",
     "lint:fix": "eslint --fix '{,test/}*.js'",
-    "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
-    "clean": "rm -rf node_modules && rm -f package-lock.json",
-    "rebuild": "npm run clean && npm install && npm run test"
+    "clear": "npm run clear:node && npm run clear:test",
+    "clear:node": "rm -rf '{node_modules,package-lock.json}'",
+    "clear:test": "rm -rf '{.nyc_output,coverage}'",
+    "rebuild": "npm run clear && npm install && npm test && npm run clear:test"
   },
   "repository": {
     "type": "git",
