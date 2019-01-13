@@ -4,8 +4,17 @@ steps:
 - name: test
   image: node:11
   commands:
-  - npm run mariadb
+  #- npm run mariadb
+  - sleep 15
   - npm install
   - npm run lint
   - npm test
   - npm run codecov:upload
+
+services:
+- name: localhost
+  image: mariadb
+  ports:
+  - 3306
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
