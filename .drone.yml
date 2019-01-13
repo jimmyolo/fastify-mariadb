@@ -1,0 +1,11 @@
+kind: pipeline
+name: node.v11
+steps:
+- name: test
+  image: node:11
+  commands:
+  - npm run mariadb
+  - npm install
+  - npm run lint
+  - npm test
+  - npm run codecov:upload
