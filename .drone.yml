@@ -2,7 +2,10 @@ kind: pipeline
 name: node.v11
 steps:
 - name: mariadb & node test
-  image: docker
+  image: docker:dind
+  volumes:
+    - name: dockersock
+      path: /var/run/docker.sock
   commands:
   - docker pull nodejs/node:11
   - npm run mariadb
