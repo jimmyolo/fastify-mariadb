@@ -7,11 +7,11 @@ steps:
   - sleep 10
   - npm install
   - npm run lint
-  - npm test
+  - npm run test:drone
   - npm run codecov:upload
 
 services:
-- name: database-ci
+- name: drone.mariadb
   image: mariadb
   ports:
   - 3306

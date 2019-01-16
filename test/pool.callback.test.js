@@ -1,4 +1,7 @@
 'use strict';
+const DB_HOST = process.env.DB_HOST || 'localhost';
+// const DB_PORT = process.env.DB_PORT || 3306;
+const DB_USER = process.env.DB_USER || 'root';
 
 const test = require('tap').test;
 const Fastify = require('fastify');
@@ -9,8 +12,8 @@ test('fastify.mariadb plugin', (batch) => {
   batch.beforeEach((done) => {
     fastify = Fastify();
     fastify.register(fastifyMariadb, {
-      host: 'database-ci',
-      user: 'root',
+      host: DB_HOST,
+      user: DB_USER,
       database: 'mysql',
       connectionLimit: 5,
       // Compatibility option. causes Promise to return an array object, [rows, metadata].
@@ -103,7 +106,9 @@ test('fastify.mariadb.test namespace should exist', (t) => {
   const fastify = Fastify();
   fastify.register(fastifyMariadb, {
     name: 'test',
-    connectionString: 'mariadb://root@database-ci/mysql',
+    host: DB_HOST,
+    user: DB_USER,
+    database: 'mysql',
   });
 
   fastify.ready((err) => {
@@ -123,13 +128,13 @@ test('fastify.mariadb.test should throw has already registered', (t) => {
   const fastify = Fastify();
   fastify.register(fastifyMariadb, {
     name: 'test',
-    user: 'root',
-    host: 'database-ci',
+    host: DB_HOST,
+    user: DB_USER,
     database: 'mysql',
   }).register(fastifyMariadb, {
     name: 'test',
-    user: 'root',
-    host: 'database-ci',
+    host: DB_HOST,
+    user: DB_USER,
     database: 'mysql',
   });
 
