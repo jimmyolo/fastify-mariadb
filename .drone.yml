@@ -1,13 +1,19 @@
 kind: pipeline
 name: node.v11
-
 steps:
-- name: mariadb & node test
+- name: test
+  image: node:11
+  commands:
+  - sleep 10
+  - npm run mariadb
+  - npm install
+  - npm run lint
+  - npm test
+  - npm run codecov:upload
+
+services:
+- name: docker
   image: docker:dind
   volumes:
-    - name: dockersock
-      path: /var/run/docker.sock
-  commands:
-  - sleep 15
-  - docker pull nodejs/node:11
-  - npm run mariadb
+  - name: dockersock
+    path: /var/run/docker.sock
