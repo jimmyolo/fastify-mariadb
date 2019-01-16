@@ -1,20 +1,12 @@
 kind: pipeline
 name: node.v11
 steps:
-- name: test
-  image: node:11
+- name: mariadb & node test
+  image: docker
   commands:
-  #- npm run mariadb
-  - sleep 15
+  - docker pull nodejs/node:11
+  - npm run mariadb
   - npm install
   - npm run lint
   - npm test
   - npm run codecov:upload
-
-services:
-- name: localhost
-  image: mariadb
-  ports:
-  - 3306
-  environment:
-    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
