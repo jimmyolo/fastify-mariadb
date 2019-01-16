@@ -11,7 +11,7 @@ test('fastify.mariadb plugin', (batch) => {
     fastify.register(fastifyMariadb, {
       promise: true,
 
-      host: 'localhost',
+      host: 'database-ci',
       user: 'root',
       database: 'mysql',
       connectionLimit: 5,
@@ -103,7 +103,7 @@ test('fastify.mariadb.test namespace should exist', (t) => {
   fastify.register(fastifyMariadb, {
     promise: true,
     name: 'test',
-    connectionString: 'mariadb://root@localhost/mysql',
+    connectionString: 'mariadb://root@database-ci/mysql',
   });
 
   fastify.ready((err) => {
@@ -125,13 +125,13 @@ test('fastify.mariadb.test should throw has already registered', (t) => {
     promise: true,
     name: 'test',
     user: 'root',
-    host: 'localhost',
+    host: 'database-ci',
     database: 'mysql',
   }).register(fastifyMariadb, {
     promise: true,
     name: 'test',
     user: 'root',
-    host: 'localhost',
+    host: 'database-ci',
     database: 'mysql',
   });
 

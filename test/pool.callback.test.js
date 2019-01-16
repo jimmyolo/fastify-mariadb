@@ -9,7 +9,7 @@ test('fastify.mariadb plugin', (batch) => {
   batch.beforeEach((done) => {
     fastify = Fastify();
     fastify.register(fastifyMariadb, {
-      host: 'localhost',
+      host: 'database-ci',
       user: 'root',
       database: 'mysql',
       connectionLimit: 5,
@@ -103,7 +103,7 @@ test('fastify.mariadb.test namespace should exist', (t) => {
   const fastify = Fastify();
   fastify.register(fastifyMariadb, {
     name: 'test',
-    connectionString: 'mariadb://root@localhost/mysql',
+    connectionString: 'mariadb://root@database-ci/mysql',
   });
 
   fastify.ready((err) => {
@@ -124,12 +124,12 @@ test('fastify.mariadb.test should throw has already registered', (t) => {
   fastify.register(fastifyMariadb, {
     name: 'test',
     user: 'root',
-    host: 'localhost',
+    host: 'database-ci',
     database: 'mysql',
   }).register(fastifyMariadb, {
     name: 'test',
     user: 'root',
-    host: 'localhost',
+    host: 'database-ci',
     database: 'mysql',
   });
 
