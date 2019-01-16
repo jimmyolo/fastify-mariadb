@@ -8,5 +8,6 @@ steps:
     - name: dockersock
       path: /var/run/docker.sock
   commands:
-  - npm run mariadb
+  - sleep 15
   - docker pull nodejs/node:11
+  - npm run mariadb
