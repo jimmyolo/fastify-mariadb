@@ -1,7 +1,7 @@
 kind: pipeline
 name: node.v11
 steps:
-- name: test:node
+- name: node:test
   image: node:11
   commands:
   - sleep 15
@@ -29,7 +29,7 @@ services:
 kind: pipeline
 name: node.v10
 steps:
-- name: test:node
+- name: node:test
   image: node:10
   commands:
   - sleep 15
@@ -56,7 +56,7 @@ services:
 kind: pipeline
 name: node.v8
 steps:
-- name: test:node
+- name: node:test
   image: node:8
   commands:
   - sleep 15
