@@ -1,0 +1,80 @@
+kind: pipeline
+name: node.v11
+steps:
+- name: node:test
+  image: node:11
+  commands:
+  - sleep 15
+  - npm install
+  - npm run lint
+  - npm run test:drone
+  #- npm run codecov:upload
+
+- name: codecov:upload
+  image: plugins/codecov
+  settings:
+    token:
+      from_secret: CODECOV_TOKEN
+
+services:
+- name: drone.mariadb
+  image: mariadb
+  ports:
+  - 3306
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    MYSQL_DATABASE: mysql
+
+---
+kind: pipeline
+name: node.v10
+steps:
+- name: node:test
+  image: node:10
+  commands:
+  - sleep 15
+  - npm install
+  - npm run lint
+  - npm run test:drone
+
+- name: codecov:upload
+  image: plugins/codecov
+  settings:
+    token:
+      from_secret: CODECOV_TOKEN
+
+services:
+- name: drone.mariadb
+  image: mariadb
+  ports:
+  - 3306
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    MYSQL_DATABASE: mysql
+
+---
+kind: pipeline
+name: node.v8
+steps:
+- name: node:test
+  image: node:8
+  commands:
+  - sleep 15
+  - npm install
+  - npm run lint
+  - npm run test:drone
+
+- name: codecov:upload
+  image: plugins/codecov
+  settings:
+    token:
+      from_secret: CODECOV_TOKEN
+
+services:
+- name: drone.mariadb
+  image: mariadb
+  ports:
+  - 3306
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    MYSQL_DATABASE: mysql

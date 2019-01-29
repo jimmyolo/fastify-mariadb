@@ -28,13 +28,6 @@ This plugin will add the `mariadb` namespace in your Fastify instance, with the 
 pool: the pool instance
 query: an utility to perform a query without a transaction
 getConnection: get a connection from the pool
-
-# synchronous SQL format and escape for MySQL/MariaDB
-sqlstring: {
-  format: an utility to generate SQL string
-  escape: an utility to escape query values
-  escapeId: an utility to escape query identifiers
-}
 ```
 
 Example:
@@ -83,10 +76,9 @@ fastify.register(require('fastify-mariadb'), {
 });
 
 fastify.get('/user/:id', async (req, reply) => {
-  const connection = await fastify.mariadb.getConnection();
-  const result = await fastify.mariadb.query(
-    'SELECT username FROM users WHERE id=?', [req.params.id],
-  );
+  const mariadb = fastify.mariadb;
+  const connection = await mariadb.getConnection();
+  const result = await mariadb.query('SELECT username FROM users WHERE id=?', [req.params.id]);
   connection.release();
   return result[0];
 });
@@ -107,7 +99,7 @@ fastify.listen(3000, (err) => {
 
 ## Acknowledgements
 
-Most of codes are copy from [fastify-mysql](https://github.com/fastify/fastify-mysql).  
+Most of codes are copied from [fastify-mysql](https://github.com/fastify/fastify-mysql).  
 `MariaDB connector/Node.js` most options are similar to `mysql`/`mysql2` driver with more features and performant. 
 
 

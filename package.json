@@ -6,14 +6,15 @@
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
     "test": "tap 'test/*.test.js' --cov --coverage-report=lcov -j2",
+    "test:drone": "DB_HOST=drone.mariadb tap 'test/*.test.js' --cov --coverage-report=lcov -j2",
     "codecov:upload": "tap --coverage-report=text-lcov && codecov",
     "codecov:html": "tap --coverage-report=html",
     "lint": "eslint '{,test/}*.js'",
     "lint:fix": "eslint --fix '{,test/}*.js'",
-    "clear": "npm run clear:node",
-    "clear:node": "rm -rf {node_modules,.nyc_output,coverage}",
-    "clear:lock": "rm -rf {package-lock.json,yarn.lock}",
-    "rebuild": "npm run clear && npm install && npm test"
+    "clean": "npm run clean:node",
+    "clean:node": "rm -rf {node_modules,.nyc_output,coverage}",
+    "clean:lock": "rm -rf {package-lock.json,yarn.lock}",
+    "rebuild": "npm run clean && npm install && npm test"
   },
   "repository": {
     "type": "git",
@@ -40,9 +41,9 @@
   },
   "devDependencies": {
     "codecov": "^3.1.0",
-    "eslint": "^5.11.1",
+    "eslint": "^5.12.0",
     "eslint-config-google": "^0.11.0",
-    "fastify": "^1.13.3",
+    "fastify": "^1.13.4",
     "tap": "^12.1.1"
   }
 }
