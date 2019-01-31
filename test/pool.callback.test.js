@@ -1,6 +1,6 @@
 'use strict';
 const DB_HOST = process.env.DB_HOST || 'localhost';
-// const DB_PORT = process.env.DB_PORT || 3306;
+const DB_PORT = process.env.DB_PORT || 3306;
 const DB_USER = process.env.DB_USER || 'root';
 
 const test = require('tap').test;
@@ -104,12 +104,11 @@ test('fastify.mariadb.test namespace should exist', (t) => {
   t.plan(6);
 
   const fastify = Fastify();
-  fastify.register(fastifyMariadb, {
-    name: 'test',
-    host: DB_HOST,
-    user: DB_USER,
-    database: 'mysql',
-  });
+  fastify
+    .register(fastifyMariadb, {
+      name: 'test',
+      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+    });
 
   fastify.ready((err) => {
     t.error(err);
@@ -122,21 +121,37 @@ test('fastify.mariadb.test namespace should exist', (t) => {
   });
 });
 
+test('fastify.mariadb should throw has already registered', (t) => {
+  t.plan(1);
+
+  const fastify = Fastify();
+  fastify
+    .register(fastifyMariadb, {
+      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+    })
+    .register(fastifyMariadb, {
+      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+    });
+
+  fastify.ready((err) => {
+    t.is(err.message, 'fastify.mariadb has already registered');
+    fastify.close();
+  });
+});
+
 test('fastify.mariadb.test should throw has already registered', (t) => {
   t.plan(1);
 
   const fastify = Fastify();
-  fastify.register(fastifyMariadb, {
-    name: 'test',
-    host: DB_HOST,
-    user: DB_USER,
-    database: 'mysql',
-  }).register(fastifyMariadb, {
-    name: 'test',
-    host: DB_HOST,
-    user: DB_USER,
-    database: 'mysql',
-  });
+  fastify
+    .register(fastifyMariadb, {
+      name: 'test',
+      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+    })
+    .register(fastifyMariadb, {
+      name: 'test',
+      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+    });
 
   fastify.ready((err) => {
     t.is(err.message, 'fastify.mariadb.test has already registered');
