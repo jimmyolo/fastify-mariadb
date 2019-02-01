@@ -2,3 +2,6 @@
 .eslintrc
 .gitignore
 .travis.yml
+.nyc_output
+.vscode
+coverage
