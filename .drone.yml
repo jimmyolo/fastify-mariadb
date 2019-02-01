@@ -9,13 +9,13 @@ steps:
   - npm run lint
   - npm install -g nyc
   - nyc npm run test:drone
-  #- npm run codecov:upload
+  - npm run codecov:upload
 
-- name: codecov:upload
-  image: plugins/codecov
-  settings:
-    token:
-      from_secret: CODECOV_TOKEN
+# - name: codecov:upload
+#   image: plugins/codecov
+#   settings:
+#     token:
+#       from_secret: CODECOV_TOKEN
 
 services:
 - name: drone.mariadb
@@ -38,12 +38,13 @@ steps:
   - npm run lint
   - npm install -g nyc
   - nyc npm run test:drone
+  - npm run codecov:upload
 
-- name: codecov:upload
-  image: plugins/codecov
-  settings:
-    token:
-      from_secret: CODECOV_TOKEN
+# - name: codecov:upload
+#   image: plugins/codecov
+#   settings:
+#     token:
+#       from_secret: CODECOV_TOKEN
 
 services:
 - name: drone.mariadb
@@ -66,12 +67,13 @@ steps:
   - npm run lint
   - npm install -g nyc
   - nyc npm run test:drone
+  - npm run codecov:upload
 
-- name: codecov:upload
-  image: plugins/codecov
-  settings:
-    token:
-      from_secret: CODECOV_TOKEN
+# - name: codecov:upload
+#   image: plugins/codecov
+#   settings:
+#     token:
+#       from_secret: CODECOV_TOKEN
 
 services:
 - name: drone.mariadb
