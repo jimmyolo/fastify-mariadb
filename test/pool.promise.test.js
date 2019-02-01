@@ -1,7 +1,8 @@
 'use strict';
-const DB_HOST = process.env.DB_HOST || 'localhost';
-const DB_PORT = process.env.DB_PORT || 3306;
-const DB_USER = process.env.DB_USER || 'root';
+const TEST_HOST = process.env.TEST_HOST || 'localhost';
+const TEST_PORT = process.env.TEST_PORT || 3306;
+const TEST_USER = process.env.TEST_USER || 'root';
+const TEST_DB = process.env.TEST_DB || 'mysql';
 
 const test = require('tap').test;
 const Fastify = require('fastify');
@@ -14,8 +15,8 @@ test('fastify.mariadb plugin', (batch) => {
     fastify.register(fastifyMariadb, {
       promise: true,
 
-      host: DB_HOST,
-      user: DB_USER,
+      host: TEST_HOST,
+      user: TEST_USER,
       database: 'mysql',
       connectionLimit: 5,
       // Compatibility option. causes Promise to return an array object, [rows, metadata].
@@ -107,7 +108,7 @@ test('fastify.mariadb.test namespace should exist', (t) => {
     .register(fastifyMariadb, {
       promise: true,
       name: 'test',
-      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+      connectionString: `mariadb://${TEST_USER}@${TEST_HOST}:${TEST_PORT}/${TEST_DB}`,
     });
 
   fastify.ready((err) => {
@@ -128,11 +129,11 @@ test('fastify.mariadb should throw has already registered', (t) => {
   fastify
     .register(fastifyMariadb, {
       promise: true,
-      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+      connectionString: `mariadb://${TEST_USER}@${TEST_HOST}:${TEST_PORT}/${TEST_DB}`,
     })
     .register(fastifyMariadb, {
       promise: true,
-      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+      connectionString: `mariadb://${TEST_USER}@${TEST_HOST}:${TEST_PORT}/${TEST_DB}`,
     });
 
   fastify.ready((err) => {
@@ -149,12 +150,12 @@ test('fastify.mariadb.test should throw has already registered', (t) => {
     .register(fastifyMariadb, {
       promise: true,
       name: 'test',
-      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+      connectionString: `mariadb://${TEST_USER}@${TEST_HOST}:${TEST_PORT}/${TEST_DB}`,
     })
     .register(fastifyMariadb, {
       promise: true,
       name: 'test',
-      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/mysql`,
+      connectionString: `mariadb://${TEST_USER}@${TEST_HOST}:${TEST_PORT}/${TEST_DB}`,
     });
 
   fastify.ready((err) => {
