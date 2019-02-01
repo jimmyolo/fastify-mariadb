@@ -7,7 +7,8 @@ steps:
   - sleep 15
   - npm install
   - npm run lint
-  - npm run test:drone
+  - npm install -g nyc
+  - nyc npm run test:drone
   #- npm run codecov:upload
 
 - name: codecov:upload
@@ -35,7 +36,8 @@ steps:
   - sleep 15
   - npm install
   - npm run lint
-  - npm run test:drone
+  - npm install -g nyc
+  - nyc npm run test:drone
 
 - name: codecov:upload
   image: plugins/codecov
@@ -62,7 +64,8 @@ steps:
   - sleep 15
   - npm install
   - npm run lint
-  - npm run test:drone
+  - npm install -g nyc
+  - nyc npm run test:drone
 
 - name: codecov:upload
   image: plugins/codecov
