@@ -40,7 +40,7 @@ function fastifyMariadb(fastify, options, next) {
     const pool = fastifyPool.pool;
 
     if (usePromise) {
-      fastify.addHook('onClose', (fastify) => pool.end());
+      fastify.addHook('onClose', () => pool.end());
     } else {
       fastify.addHook('onClose', (fastify, done) => pool.end(done));
     }
