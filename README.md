@@ -46,7 +46,7 @@ fastify.get('/user/:id', (req, reply) => {
   fastify.mariadb.getConnection((err, conn) => {
     if (err) return reply.send(err);
     conn.query('SELECT username FROM users WHERE id=?', [req.params.id], (err, result) => {
-      client.release();
+      conn.release();
       reply.send(err || result);
     });
   });
