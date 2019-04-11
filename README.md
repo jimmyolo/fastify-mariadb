@@ -92,15 +92,17 @@ fastify.listen(3000, (err) => {
 ## options
 
 * `promise` - `Boolean` (optional, if not present will use `callback` style pool)
-* `connectionString` - `String` (optional)
-* `native Pool options` - see offical documents [MariaDB connector/Node.js](https://mariadb.com/kb/en/library/about-mariadb-connector-nodejs/)
+* `connectionString` - `String` (optional, url string) For example: `mariadb://user:pass@host/db?debug=true&timezone=+08:00`
+* `Pool options` - [Pool options](https://github.com/MariaDB/mariadb-connector-nodejs/blob/master/documentation/promise-api.md#pool-options) includes `connection options` that will be used when creating new connections.
+
+`MariaDB connector/Node.js` most options are similar to `mysql/mysql2` driver with more features and performant.
+More usage, please see [mariadb-connector-nodejs](https://github.com/MariaDB/mariadb-connector-nodejs)
   * [`Promise API`](https://github.com/MariaDB/mariadb-connector-nodejs/blob/master/documentation/promise-api.md#promise-api)
   * [`Callback API`](https://github.com/MariaDB/mariadb-connector-nodejs/blob/master/documentation/callback-api.md#callback-api)
 
 ## Acknowledgements
 
-Most of codes are copied from [fastify-mysql](https://github.com/fastify/fastify-mysql).  
-`MariaDB connector/Node.js` most options are similar to `mysql`/`mysql2` driver with more features and performant. 
+- Most of codes are copied from [fastify-mysql](https://github.com/fastify/fastify-mysql).
 
 
 ## License
