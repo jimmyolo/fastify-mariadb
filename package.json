@@ -45,6 +45,6 @@
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.12.0",
     "fastify": "^2.2.0",
-    "tap": "^12.6.1"
+    "tap": "^13.0.0"
   }
 }
