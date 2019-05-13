@@ -43,7 +43,7 @@
   "devDependencies": {
     "codecov": "^3.3.0",
     "eslint": "^5.16.0",
-    "eslint-config-google": "^0.12.0",
+    "eslint-config-google": "^0.13.0",
     "fastify": "^2.2.0",
     "tap": "^12.6.1"
   }
