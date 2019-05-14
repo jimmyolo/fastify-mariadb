@@ -17,8 +17,7 @@ test('fastify.mariadb plugin', (batch) => {
       user: TEST_USER,
       database: 'mysql',
       connectionLimit: 5,
-      // Compatibility option. causes Promise to return an array object, [rows, metadata].
-      // rather than the rows as JSON objects with a meta property.
+
       metaAsArray: true
     })
     done()
