@@ -5,17 +5,11 @@ steps:
   image: node:11
   commands:
   - sleep 15
+  - npm install -g nyc snazzy codecov
   - npm install
   - npm run lint
-  - npm install -g nyc
   - nyc npm run test:drone
   - npm run codecov:upload
-
-# - name: codecov:upload
-#   image: plugins/codecov
-#   settings:
-#     token:
-#       from_secret: CODECOV_TOKEN
 
 services:
 - name: drone.mariadb
@@ -34,17 +28,11 @@ steps:
   image: node:10
   commands:
   - sleep 15
+  - npm install -g nyc snazzy codecov
   - npm install
   - npm run lint
-  - npm install -g nyc
   - nyc npm run test:drone
   - npm run codecov:upload
-
-# - name: codecov:upload
-#   image: plugins/codecov
-#   settings:
-#     token:
-#       from_secret: CODECOV_TOKEN
 
 services:
 - name: drone.mariadb
@@ -63,17 +51,11 @@ steps:
   image: node:8
   commands:
   - sleep 15
+  - npm install -g nyc snazzy codecov
   - npm install
   - npm run lint
-  - npm install -g nyc
   - nyc npm run test:drone
   - npm run codecov:upload
-
-# - name: codecov:upload
-#   image: plugins/codecov
-#   settings:
-#     token:
-#       from_secret: CODECOV_TOKEN
 
 services:
 - name: drone.mariadb
