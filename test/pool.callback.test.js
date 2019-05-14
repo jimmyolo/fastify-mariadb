@@ -121,7 +121,7 @@ test('fastify.mariadb.test namespace should exist', (t) => {
   })
 })
 
-test('fastify.mariadb should throw has already registered', (t) => {
+test('fastify.mariadb should throw has already been registered', (t) => {
   t.plan(1)
 
   const fastify = Fastify()
@@ -134,12 +134,12 @@ test('fastify.mariadb should throw has already registered', (t) => {
     })
 
   fastify.ready((err) => {
-    t.is(err.message, 'fastify.mariadb has already registered')
+    t.is(err.message, 'fastify.mariadb has already been registered')
     fastify.close()
   })
 })
 
-test('fastify.mariadb.test should throw has already registered', (t) => {
+test('fastify.mariadb.test should throw has already been registered', (t) => {
   t.plan(1)
 
   const fastify = Fastify()
@@ -154,7 +154,24 @@ test('fastify.mariadb.test should throw has already registered', (t) => {
     })
 
   fastify.ready((err) => {
-    t.is(err.message, 'fastify.mariadb.test has already registered')
+    t.is(err.message, 'fastify.mariadb.test has already been registered')
+    fastify.close()
+  })
+})
+
+test('should throw error when initial fail', (t) => {
+  t.plan(1)
+
+  const fastify = Fastify()
+  const invalidUser = 'invalid'
+
+  fastify
+    .register(fastifyMariadb, {
+      connectionString: `mariadb://${invalidUser}@${TEST_HOST}:${TEST_PORT}/${TEST_DB}`
+    })
+
+  fastify.ready((err) => {
+    t.ok(err)
     fastify.close()
   })
 })
