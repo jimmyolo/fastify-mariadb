@@ -50,12 +50,12 @@ function fastifyMariadb (fastify, options, next) {
         fastify.decorate('mariadb', {})
       }
       if (fastify.mariadb[name]) {
-        return next(new Error('fastify.mariadb.' + name + ' has already registered'))
+        return next(new Error('fastify.mariadb.' + name + ' has already been registered'))
       }
       fastify.mariadb[name] = fastifyPool
     } else {
       if (fastify.mariadb) {
-        return next(new Error('fastify.mariadb has already registered'))
+        return next(new Error('fastify.mariadb has already been registered'))
       } else {
         fastify.mariadb = fastifyPool
       }

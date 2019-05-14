@@ -1,7 +1,5 @@
 # Fastify MariaDB Pool plugin
-<!--
-[![NPM](https://nodei.co/npm/fastify-mariadb.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/fastify-mariadb)
--->
+
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 [![Build Status](https://travis-ci.org/victor0801x/fastify-mariadb.svg?branch=master)](https://travis-ci.org/victor0801x/fastify-mariadb)
 [![npm version](https://img.shields.io/npm/v/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
