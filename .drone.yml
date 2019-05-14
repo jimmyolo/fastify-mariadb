@@ -1,8 +1,8 @@
 kind: pipeline
-name: node.v11
+name: node.v12
 steps:
 - name: node:test
-  image: node:11
+  image: node:12
   commands:
   - sleep 15
   - npm install -g nyc snazzy codecov
