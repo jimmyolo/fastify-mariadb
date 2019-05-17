@@ -40,6 +40,16 @@
   "devDependencies": {
     "codecov": "^3.4.0",
     "fastify": "^2.3.0",
+    "release-it": "*",
     "tap": "^12.7.0"
+  },
+  "release-it": {
+    "git": {
+      "tagName": "v${version}",
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
+    }
   }
 }
