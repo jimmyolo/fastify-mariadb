@@ -41,7 +41,7 @@
     "codecov": "^3.4.0",
     "fastify": "^2.3.0",
     "release-it": "*",
-    "tap": "^12.7.0"
+    "tap": "^13.1.11"
   },
   "release-it": {
     "git": {
