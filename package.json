@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
-    "test": "tap 'test/*.test.js' -j2",
-    "test:cov": "tap 'test/*.test.js' -j2 --cov --coverage-report=lcov",
+    "test": "tap 'test/*.test.js' -j2 --cov --coverage-report=lcov",
     "test:drone": "DB_HOST=drone.mariadb npm test",
     "codecov:upload": "tap --coverage-report=text-lcov && codecov",
     "lint": "standard --verbose | snazzy",
