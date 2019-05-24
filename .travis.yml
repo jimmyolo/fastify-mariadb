@@ -11,11 +11,10 @@ node_js:
 before_script:
   - sudo /etc/init.d/mysql stop # - sudo systemctl stop mysql
   - npm run mariadb
-  - npm install -g nyc
 
 script:
   - npm run lint
-  - nyc npm test
+  - npm test
 
 after_success:
   - npm run codecov:upload
