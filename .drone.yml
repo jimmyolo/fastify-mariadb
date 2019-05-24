@@ -5,7 +5,7 @@ steps:
   image: node:12
   commands:
   - sleep 15
-  - npm install -g nyc snazzy codecov
+  - npm install -g nyc
   - npm install
   - npm run lint
   - nyc npm run test:drone
@@ -28,7 +28,7 @@ steps:
   image: node:10
   commands:
   - sleep 15
-  - npm install -g nyc snazzy codecov
+  - npm install -g nyc
   - npm install
   - npm run lint
   - nyc npm run test:drone
@@ -51,7 +51,7 @@ steps:
   image: node:8
   commands:
   - sleep 15
-  - npm install -g nyc snazzy codecov
+  - npm install -g nyc
   - npm install
   - npm run lint
   - nyc npm run test:drone
