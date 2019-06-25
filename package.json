@@ -42,7 +42,7 @@
     "release-it": "*",
     "snazzy": "^8.0.0",
     "standard": "^12.0.1",
-    "tap": "^12.7.0"
+    "tap": "^14.3.0"
   },
   "release-it": {
     "git": {
