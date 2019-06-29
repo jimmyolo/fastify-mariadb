@@ -5,12 +5,13 @@ node_js:
   - "10"
   - "8"
 
-# services:
-#   - docker
+addons:
+  mariadb: '10.3'
 
 before_script:
   - sudo /etc/init.d/mysql stop # - sudo systemctl stop mysql
-  - npm run mariadb
+  # - npm run mariadb
+  # - sleep 10
 
 script:
   - npm run lint
