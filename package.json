@@ -4,7 +4,7 @@
   "description": "Fastify MariaDB connection Pool plugin",
   "main": "index.js",
   "scripts": {
-    "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
+    "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb:10.3",
     "test": "tap 'test/*.test.js' --cov --coverage-report=text-lcov",
     "test:drone": "DB_HOST=drone.mariadb npm test",
     "codecov:upload": "tap --coverage-report=text-lcov && codecov",
