@@ -10,8 +10,7 @@
     "codecov:upload": "tap --coverage-report=text-lcov && codecov",
     "lint": "standard --verbose | snazzy",
     "lint:fix": "standard --fix",
-    "clean": "rm -rf {node_modules,.nyc_output,coverage,package-lock.json,}",
-    "rebuild": "npm run clean && npm install"
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
