@@ -6,7 +6,6 @@
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
     "test": "tap 'test/*.test.js' --cov --coverage-report=text-lcov",
-    "test:drone": "DB_HOST=drone.mariadb npm test",
     "codecov:upload": "tap --coverage-report=text-lcov && codecov",
     "lint": "standard --verbose | snazzy",
     "lint:fix": "standard --fix",
@@ -37,11 +36,11 @@
   },
   "devDependencies": {
     "codecov": "^3.5.0",
-    "fastify": "^2.6.0",
+    "fastify": "^2.7.1",
     "release-it": "*",
     "snazzy": "^8.0.0",
-    "standard": "^13.0.2",
-    "tap": "^14.4.1"
+    "standard": "^13.1.0",
+    "tap": "^14.5.0"
   },
   "release-it": {
     "git": {
