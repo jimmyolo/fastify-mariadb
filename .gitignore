@@ -47,18 +47,3 @@ profile-*
 
 # webstorm
 .idea
-
-# vscode
-.vscode
-*code-workspace
-
-# clinic
-profile*
-*clinic*
-*flamegraph*
-
-# lock files
-yarn.lock
-package-lock.json
-
-.vscode
