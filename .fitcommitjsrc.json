@@ -11,7 +11,7 @@
     },
     "tags": {
       "enabled": true,
-      "tags": "feat, fix, docs, style, refactor, perf, test, chore, revert",
+      "tags": "feat, fix, docs, style, refactor, perf, test, chore, revert, build",
       "lineOfTheTag": 2
     },
     "capitalizedSubject" : {

@@ -35,14 +35,14 @@
     "sqlstring": "^2.3.1"
   },
   "devDependencies": {
-    "codecov": "^3.6.1",
-    "fastify": "^2.11.0",
+    "codecov": "^3.6.5",
+    "fastify": "^2.12.0",
     "fit-commit-js": "^0.3.2",
     "husky": "^3.1.0",
-    "release-it": "^12.4.3",
+    "release-it": "^12.6.0",
     "snazzy": "^8.0.0",
     "standard": "^14.3.1",
-    "tap": "^14.10.5"
+    "tap": "^14.10.6"
   },
   "release-it": {
     "git": {
