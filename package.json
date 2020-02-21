@@ -38,7 +38,7 @@
     "codecov": "^3.6.5",
     "fastify": "^2.12.0",
     "fit-commit-js": "^0.3.2",
-    "husky": "^3.1.0",
+    "husky": "^4.2.3",
     "release-it": "^12.6.0",
     "snazzy": "^8.0.0",
     "standard": "^14.3.1",
@@ -56,8 +56,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "node ./node_modules/fit-commit-js/lib/hook.js .git/COMMIT_EDITMSG",
-      "pre-commit": "npm run lint",
-      "pre-push": "npm test"
+      "pre-commit": "npm run lint"
     }
   }
 }
