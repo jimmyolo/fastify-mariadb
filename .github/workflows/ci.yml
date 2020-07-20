@@ -5,51 +5,51 @@ on:
   - pull_request
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node:
+        node-version:
           - 10
           - 12
           - 14
+        db: [
+          'mariadb:latest'
+        ]
+
+    name: Node.js ${{ matrix.node-version }} - ${{ matrix.db }}
 
     steps:
-    - name: Stop the Default MySQL
-      run: sudo systemctl stop mysql
+      - name: Stop the Default MySQL
+        run: sudo systemctl stop mysql
 
-    - name: Set up MariaDB/MySQL server
-      uses: getong/mariadb-action@v1.1
-      with:
-        mariadb version: 'latest'
-        character set server: 'utf8mb4'
-        collation server: 'utf8mb4_general_ci'
-      env:
-        MYSQL_DATABASE: 'mysql'
-        MYSQL_ALLOW_EMPTY_PASSWORD: true
+      - name: Start MariaDB/MySQL server
+        uses: getong/mariadb-action@v1.1
+        with:
+          # mariadb version: 'latest'
+          character set server: 'utf8mb4'
+          collation server: 'utf8mb4_general_ci'
+        env:
+          MYSQL_DATABASE: 'mysql'
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: npm Version
-      run: npm version
+      - name: Install
+        run: |
+          npm version
+          npm install
 
-    - name: npm Install
-      run: npm install
+      - name: Lint
+        run: npm run lint
 
-    - name: Lint
-      run: npm run lint
-
-    - name: Tests
-      run: npm run test
+      - name: Tests
+        run: npm run test
 
   # coverage:
   #   needs: build
