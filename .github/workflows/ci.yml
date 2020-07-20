@@ -10,10 +10,10 @@ jobs:
 
     strategy:
       matrix:
-        node: 
-          - 8
+        node:
           - 10
           - 12
+          - 14
 
     steps:
     - name: Stop MySQL
@@ -25,12 +25,12 @@ jobs:
         mariadb version: 'latest'
         character set server: 'utf8mb4'
         collation server: 'utf8mb4_general_ci'
-        mysql database: 'mysql'
       env:
         MYSQL_DATABASE: 'mysql'
         MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node }}
       uses: actions/setup-node@v1
       with:
