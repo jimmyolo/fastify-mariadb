@@ -21,7 +21,8 @@ jobs:
         character set server: 'utf8mb4'
         collation server: 'utf8mb4_general_ci'
         mysql database: 'mysql'
-        mysql user: 'root'
+      env:
+        MYSQL_DATABASE: 'mysql'
         MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     - name: Use Node.js ${{ matrix.node }}
