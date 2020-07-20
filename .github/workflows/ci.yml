@@ -51,14 +51,14 @@ jobs:
       - name: Tests
         run: npm test -- --coverage
 
-      - name: codecov
-        run: npm run codecov:upload
-      # - name: Generate coverage report
-      #   run: npm run codecov:report:xml
+      # - name: codecov
+      #   run: npm run codecov:upload
 
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     file: ./coverage.xml
-      #     fail_ci_if_error: true
+      - name: Generate coverage report
+        run: npm run codecov:report
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@master
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
