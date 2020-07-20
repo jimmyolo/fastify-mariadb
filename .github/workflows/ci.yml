@@ -49,14 +49,13 @@ jobs:
         run: npm run lint
 
       - name: Tests
-        run: npm run test
+        run: npm test -- --coverage
 
-      - name: Generate coverage report
-        run: npm run codecov:report
+      # - name: Generate coverage report
+      #   run: npm run codecov:report
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./.nyc_output
           fail_ci_if_error: true
