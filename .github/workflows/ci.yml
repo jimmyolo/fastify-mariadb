@@ -30,23 +30,16 @@ jobs:
         MYSQL_DATABASE: 'mysql'
         MYSQL_ALLOW_EMPTY_PASSWORD: true
 
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node }}
-      uses: actions/checkout@v2
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
 
-    - name: Version
-      run: npm version
-
-    - name: Install
-      run: npm install
-
-    - name: Lint
-      run: npm run lint
-
-    - name: Tests
-      run: npm run test
+    - run: npm version
+    - run: npm install
+    - run: npm run lint
+    - run: npm run test
 
   # coverage:
   #   needs: build
