@@ -7,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node:
@@ -16,10 +15,10 @@ jobs:
           - 14
 
     steps:
-    - name: Stop MySQL
+    - name: Stop the Default MySQL
       run: sudo systemctl stop mysql
 
-    - name: Start MariaDB/MySQL server
+    - name: Set up MariaDB/MySQL server
       uses: getong/mariadb-action@v1.1
       with:
         mariadb version: 'latest'
@@ -29,6 +28,9 @@ jobs:
         MYSQL_DATABASE: 'mysql'
         MYSQL_ALLOW_EMPTY_PASSWORD: true
 
+  test:
+    needs: build
+    steps:
     - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node }}
@@ -36,10 +38,10 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
 
-    - name: Version
+    - name: npm Version
       run: npm version
 
-    - name: Install
+    - name: npm Install
       run: npm install
 
     - name: Lint
