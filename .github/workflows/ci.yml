@@ -51,11 +51,10 @@ jobs:
       - name: Tests
         run: npm run test
 
-  # coverage:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: codecov/codecov-action@v1.0.3
-  #       with:
-  #         token: ${{secrets.CODECOV_TOKEN}}
-  #     - run: npm run codecov:upload
+      - name: Upload coverage to Codecov
+        run: npm run codecov:upload
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     fail_ci_if_error: true
