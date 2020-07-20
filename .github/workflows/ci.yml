@@ -5,39 +5,43 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node: [8, 10, 12]
 
     steps:
-    - uses: actions/checkout@v1
     - name: Stop MySQL
       run: sudo systemctl stop mysql
 
     - name: Start MariaDB/MySQL server
-      uses: mirromutth/mysql-action@v1
+      uses: getong/mariadb-action@v1.1
       with:
+        #mariadb version: 'latest'
+        character set server: 'utf8mb4'
+        collation server: 'utf8mb4_general_ci'
         mysql database: 'mysql'
         mysql user: 'root'
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Use Node.js ${{ matrix.node }}
+      uses: actions/checkout@v2
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: npm install & style lint & test
-      run: |
-        npm install
-        npm run lint
-        npm test
-      env:
-        CI: true
+    - name: install
+      run: npm install
 
-  coverage:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: codecov/codecov-action@v1.0.3
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
-      - run: npm run codecov:upload
+    - name: Run lint
+      run: npm run lint
+
+    - name: Run tests
+      run: npm run test
+
+  # coverage:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: codecov/codecov-action@v1.0.3
+  #       with:
+  #         token: ${{secrets.CODECOV_TOKEN}}
+  #     - run: npm run codecov:upload
