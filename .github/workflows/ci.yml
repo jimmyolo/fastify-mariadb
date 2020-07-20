@@ -36,10 +36,17 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
 
-    - run: npm version
-    - run: npm install
-    - run: npm run lint
-    - run: npm run test
+    - name: Version
+      run: npm version
+
+    - name: Install
+      run: npm install
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Tests
+      run: npm run test
 
   # coverage:
   #   needs: build
