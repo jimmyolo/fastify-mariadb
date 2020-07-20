@@ -1,9 +1,8 @@
 name: test
 
-on: [
-    push,
-    pull_request,
-  ]
+on: 
+  - push
+  - pull_request
 
 jobs:
   build:
@@ -11,11 +10,10 @@ jobs:
 
     strategy:
       matrix:
-        node: [
-          8,
-          10,
-          12,
-        ]
+        node: 
+          - 8
+          - 10
+          - 12
 
     steps:
     - name: Stop MySQL
@@ -37,7 +35,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-      run: node -v
+
+    - name: Version
+      run: npm version
 
     - name: Install
       run: npm install
