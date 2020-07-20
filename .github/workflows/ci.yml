@@ -17,11 +17,12 @@ jobs:
     - name: Start MariaDB/MySQL server
       uses: getong/mariadb-action@v1.1
       with:
-        #mariadb version: 'latest'
+        mariadb version: 'latest'
         character set server: 'utf8mb4'
         collation server: 'utf8mb4_general_ci'
         mysql database: 'mysql'
         mysql user: 'root'
+        MYSQL_ALLOW_EMPTY_PASSWORD: true
 
     - name: Use Node.js ${{ matrix.node }}
       uses: actions/checkout@v2
