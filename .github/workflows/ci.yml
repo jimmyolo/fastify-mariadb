@@ -1,8 +1,9 @@
 name: test
 
-on: 
-  - push
-  - pull_request
+on: [
+    push,
+    pull_request,
+  ]
 
 jobs:
   build:
@@ -10,10 +11,11 @@ jobs:
 
     strategy:
       matrix:
-        node: 
-          - 8
-          - 10
-          - 12
+        node: [
+          8,
+          10,
+          12,
+        ]
 
     steps:
     - name: Stop MySQL
