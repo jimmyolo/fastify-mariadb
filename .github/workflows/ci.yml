@@ -1,0 +1,64 @@
+name: test
+
+on: 
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 10
+          - 12
+          - 14
+        db: [
+          'mariadb:latest'
+        ]
+
+    name: Node.js ${{ matrix.node-version }} - ${{ matrix.db }}
+
+    steps:
+      - name: Stop the Default MySQL
+        run: sudo systemctl stop mysql
+
+      - name: Start MariaDB/MySQL server
+        uses: getong/mariadb-action@v1.1
+        with:
+          # mariadb version: 'latest'
+          character set server: 'utf8mb4'
+          collation server: 'utf8mb4_general_ci'
+        env:
+          MYSQL_DATABASE: 'mysql'
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: |
+          npm version
+          npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm test -- --coverage
+
+      # - name: codecov
+      #   run: npm run codecov:upload
+
+      - name: Generate coverage report
+        run: npm run codecov:report
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@master
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
