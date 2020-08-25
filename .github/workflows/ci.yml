@@ -1,4 +1,4 @@
-name: test
+name: CI workflow
 
 on: 
   - push
@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 8
           - 10
           - 12
           - 14

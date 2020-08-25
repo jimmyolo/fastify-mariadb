@@ -1,16 +1,18 @@
 # Fastify MariaDB Pool plugin
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
-[![Build Status](https://travis-ci.org/victor0801x/fastify-mariadb.svg?branch=master)](https://travis-ci.org/victor0801x/fastify-mariadb)
+![CI workflow](https://github.com/victor0801x/fastify-mariadb/workflows/CI%20workflow/badge.svg)
 [![npm version](https://img.shields.io/npm/v/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
 [![npm downloads](https://img.shields.io/npm/dm/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
 <!-- [![Known Vulnerabilities](https://snyk.io/test/github/victor0801x/fastify-mariadb/badge.svg?targetFile=package.json&style=flat)](https://snyk.io/test/github/victor0801x/fastify-mariadb?targetFile=package.json) -->
 <!-- [![codecov](https://codecov.io/gh/victor0801x/fastify-mariadb/branch/master/graph/badge.svg?style=flat)](https://codecov.io/gh/victor0801x/fastify-mariadb) -->
 <!--[![Greenkeeper badge](https://badges.greenkeeper.io/victor0801x/fastify-mariadb.svg?style=flat)](https://greenkeeper.io/)-->
 
-Fastify MariaDB connection Pool plugin, with this you can share the same MariaDB connection pool in every part of your server.
+Fastify MariaDB **connection Pool** plugin, with this you can share the same MariaDB connection pool in every part of your server.
 
-Under the hood the offical [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
+Under the hood the official [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
+
+**Note: start v2.x required Node.js 10+**
 
 ## Install
 
