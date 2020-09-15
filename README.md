@@ -1,7 +1,7 @@
 # Fastify MariaDB Pool plugin
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
-![CI workflow](https://github.com/victor0801x/fastify-mariadb/workflows/CI%20workflow/badge.svg)
+![CI](https://github.com/victor0801x/fastify-mariadb/workflows/CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
 [![npm downloads](https://img.shields.io/npm/dm/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
 <!-- [![Known Vulnerabilities](https://snyk.io/test/github/victor0801x/fastify-mariadb/badge.svg?targetFile=package.json&style=flat)](https://snyk.io/test/github/victor0801x/fastify-mariadb?targetFile=package.json) -->
@@ -33,7 +33,7 @@ getConnection: get a connection from the pool
 
 Example:
 ```js
-const fastify = require('fastify')
+const fastify = require('fastify')()
 
 fastify.register(require('fastify-mariadb'), {
   host: 'localhost',
@@ -69,7 +69,7 @@ As you can see there is no need to close the client, since is done internally.
 
 Async await is supported, when register `promise` option is `true`:
 ```js
-const fastify = require('fastify')
+const fastify = require('fastify')()
 
 fastify.register(require('fastify-mariadb'), {
   promise: true,
