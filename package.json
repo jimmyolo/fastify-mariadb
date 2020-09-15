@@ -42,7 +42,7 @@
     "codecov": "^3.7.2",
     "fastify": "^3.2.1",
     "husky": "^4.2.5",
-    "release-it": "^13.6.5",
+    "release-it": "^14.0.3",
     "snazzy": "^8.0.0",
     "standard": "^14.3.4",
     "tap": "^14.10.8"
