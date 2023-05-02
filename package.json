@@ -4,7 +4,7 @@
   "description": "Fastify MariaDB connection Pool plugin",
   "main": "index.js",
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   },
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
