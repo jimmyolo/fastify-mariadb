@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/victor0801x/fastify-mariadb.git"
+    "url": "git+https://github.com/jimmyolo/fastify-mariadb.git"
   },
   "keywords": [
     "fastify",
@@ -30,9 +30,9 @@
   "author": "Jimmy Huang <victor0801x@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/victor0801x/fastify-mariadb/issues"
+    "url": "https://github.com/jimmyolo/fastify-mariadb/issues"
   },
-  "homepage": "https://github.com/victor0801x/fastify-mariadb#readme",
+  "homepage": "https://github.com/jimmyolo/fastify-mariadb#readme",
   "dependencies": {
     "fastify-plugin": "^4.5.0",
     "mariadb": "^3.1.1",

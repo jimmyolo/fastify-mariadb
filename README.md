@@ -1,18 +1,19 @@
 # Fastify MariaDB Pool plugin
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
-![CI](https://github.com/victor0801x/fastify-mariadb/workflows/CI/badge.svg)
+![CI](https://github.com/jimmyolo/fastify-mariadb/workflows/CI/badge.svg)
 [![npm version](https://img.shields.io/npm/v/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
 [![npm downloads](https://img.shields.io/npm/dm/fastify-mariadb.svg?style=flat)](https://www.npmjs.com/package/fastify-mariadb)
-<!-- [![Known Vulnerabilities](https://snyk.io/test/github/victor0801x/fastify-mariadb/badge.svg?targetFile=package.json&style=flat)](https://snyk.io/test/github/victor0801x/fastify-mariadb?targetFile=package.json) -->
-<!-- [![codecov](https://codecov.io/gh/victor0801x/fastify-mariadb/branch/master/graph/badge.svg?style=flat)](https://codecov.io/gh/victor0801x/fastify-mariadb) -->
-<!--[![Greenkeeper badge](https://badges.greenkeeper.io/victor0801x/fastify-mariadb.svg?style=flat)](https://greenkeeper.io/)-->
+<!-- [![Known Vulnerabilities](https://snyk.io/test/github/jimmyolo/fastify-mariadb/badge.svg?targetFile=package.json&style=flat)](https://snyk.io/test/github/jimmyolo/fastify-mariadb?targetFile=package.json) -->
+<!-- [![codecov](https://codecov.io/gh/jimmyolo/fastify-mariadb/branch/master/graph/badge.svg?style=flat)](https://codecov.io/gh/jimmyolo/fastify-mariadb) -->
+<!--[![Greenkeeper badge](https://badges.greenkeeper.io/jimmyolo/fastify-mariadb.svg?style=flat)](https://greenkeeper.io/)-->
 
 Fastify MariaDB **connection Pool** plugin, with this you can share the same MariaDB connection pool in every part of your server.
 
 Under the hood the official [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
 
 **Note: start v2.x required Node.js 10+**
+**Note: start v3.x required Node.js 12+**
 
 ## Install
 
@@ -60,7 +61,7 @@ fastify.get('/mariadb/time', (req, reply) => {
   })
 })
 
-fastify.listen(3000, (err) => {
+fastify.listen({ port: 3000 }, (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
@@ -84,7 +85,7 @@ fastify.get('/user/:id', async (req, reply) => {
   return result[0]
 })
 
-fastify.listen(3000, (err) => {
+fastify.listen({ port: 3000 }, (err) => {
   if (err) throw err
   console.log(`server listening on ${fastify.server.address().port}`)
 })
