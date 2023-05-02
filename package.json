@@ -36,15 +36,15 @@
   "dependencies": {
     "fastify-plugin": "^4.5.0",
     "mariadb": "^3.1.1",
-    "sqlstring": "^2.3.2"
+    "sqlstring": "^2.3.3"
   },
   "devDependencies": {
-    "codecov": "^3.7.2",
+    "codecov": "^3.8.3",
     "fastify": "^4.17.0",
-    "husky": "^4.3.0",
-    "release-it": "^14.0.3",
-    "snazzy": "^8.0.0",
-    "standard": "^14.3.4",
+    "husky": "^4.3.8",
+    "release-it": "^15.10.3",
+    "snazzy": "^9.0.0",
+    "standard": "^17.0.0",
     "tap": "^16.3.4"
   },
   "release-it": {
