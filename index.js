@@ -66,6 +66,6 @@ function fastifyMariadb (fastify, options, next) {
 }
 
 module.exports = fp(fastifyMariadb, {
-  fastify: '>=1.x',
+  fastify: '4.x',
   name: 'fastify-mariadb'
 })
