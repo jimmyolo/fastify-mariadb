@@ -19,6 +19,7 @@ test('fastify.mariadb plugin', (batch) => {
       user: DB_USER,
       database: 'mysql',
       connectionLimit: 5,
+
       // Compatibility option. causes Promise to return an array object, [rows, metadata].
       // rather than the rows as JSON objects with a meta property.
       metaAsArray: true
@@ -42,12 +43,12 @@ test('fastify.mariadb plugin', (batch) => {
   })
 
   batch.test('mariadb.pool.query', (t) => {
-    t.plan(3)
     fastify.ready((err) => {
       t.error(err)
       fastify.mariadb.query('SELECT 1 AS `ping`').then(([results, metadata]) => {
         t.ok(results[0].ping === 1)
         t.ok(metadata)
+        t.end()
       })
     })
   })

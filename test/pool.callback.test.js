@@ -37,13 +37,13 @@ test('fastify.mariadb plugin', (batch) => {
   })
 
   batch.test('mariadb.pool.query', (t) => {
-    t.plan(4)
     fastify.ready((err) => {
       t.error(err)
       fastify.mariadb.query('SELECT 1 AS `ping`', (err, results, metadata) => {
         t.error(err)
         t.ok(results[0].ping === 1)
         t.ok(metadata)
+        t.end()
       })
     })
   })
