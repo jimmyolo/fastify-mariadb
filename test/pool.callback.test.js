@@ -9,24 +9,19 @@ const Fastify = require('fastify')
 const fastifyMariadb = require('../index')
 
 test('fastify.mariadb plugin', (batch) => {
-  let fastify = false
-  batch.beforeEach((done) => {
+  let fastify
+  batch.beforeEach(() => {
     fastify = Fastify()
     fastify.register(fastifyMariadb, {
       host: DB_HOST,
       user: DB_USER,
       database: 'mysql',
-      connectionLimit: 5,
-
-      metaAsArray: true
+      connectionLimit: 5
     })
-    done()
   })
 
-  batch.afterEach((done) => {
+  batch.afterEach(() => {
     fastify.close()
-    fastify = null
-    done()
   })
 
   batch.test('fastify.mariadb namespace should exist', (t) => {
@@ -45,7 +40,7 @@ test('fastify.mariadb plugin', (batch) => {
     t.plan(4)
     fastify.ready((err) => {
       t.error(err)
-      fastify.mariadb.query('SELECT 1 AS `ping`', (err, [results, metadata]) => {
+      fastify.mariadb.query('SELECT 1 AS `ping`', (err, results, metadata) => {
         t.error(err)
         t.ok(results[0].ping === 1)
         t.ok(metadata)
@@ -59,13 +54,13 @@ test('fastify.mariadb plugin', (batch) => {
       t.error(err)
       fastify.mariadb.getConnection((err, connection) => {
         t.error(err)
-        connection.query('SELECT 2 AS `ping`', (err, [results]) => {
+        connection.query('SELECT 2 AS `ping`', (err, results) => {
           t.error(err)
           t.ok(results[0].ping === 2)
           connection.release()
         })
       })
-      fastify.mariadb.query('SELECT 3 AS `ping`', (err, [results]) => {
+      fastify.mariadb.query('SELECT 3 AS `ping`', (err, results) => {
         t.error(err)
         t.ok(results[0].ping === 3)
       })
@@ -78,19 +73,19 @@ test('fastify.mariadb plugin', (batch) => {
       t.error(err)
       const sqlstring = fastify.mariadb.sqlstring
 
-      t.is(
+      t.equal(
         sqlstring.format('SELECT ? AS `now`', [1]),
         'SELECT 1 AS `now`'
       )
 
       const id = 'userId'
-      t.is(
+      t.equal(
         'SELECT * FROM users WHERE id = ' + sqlstring.escape(id),
         `SELECT * FROM users WHERE id = '${id}'`
       )
 
       const sorter = 'date'
-      t.is(
+      t.equal(
         'SELECT * FROM posts ORDER BY ' + sqlstring.escapeId('posts.' + sorter),
         'SELECT * FROM posts ORDER BY `posts`.`date`'
       )
@@ -134,7 +129,7 @@ test('fastify.mariadb should throw has already been registered', (t) => {
     })
 
   fastify.ready((err) => {
-    t.is(err.message, 'fastify.mariadb has already been registered')
+    t.equal(err.message, 'fastify.mariadb has already been registered')
     fastify.close()
   })
 })
@@ -154,7 +149,7 @@ test('fastify.mariadb.test should throw has already been registered', (t) => {
     })
 
   fastify.ready((err) => {
-    t.is(err.message, 'fastify.mariadb.test has already been registered')
+    t.equal(err.message, 'fastify.mariadb.test has already been registered')
     fastify.close()
   })
 })

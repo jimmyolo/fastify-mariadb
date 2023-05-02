@@ -9,8 +9,8 @@ const Fastify = require('fastify')
 const fastifyMariadb = require('../index')
 
 test('fastify.mariadb plugin', (batch) => {
-  let fastify = false
-  batch.beforeEach((done) => {
+  let fastify
+  batch.beforeEach(() => {
     fastify = Fastify()
     fastify.register(fastifyMariadb, {
       promise: true,
@@ -23,13 +23,10 @@ test('fastify.mariadb plugin', (batch) => {
       // rather than the rows as JSON objects with a meta property.
       metaAsArray: true
     })
-    done()
   })
 
-  batch.afterEach((done) => {
+  batch.afterEach(() => {
     fastify.close()
-    fastify = null
-    done()
   })
 
   batch.test('fastify.mariadb namespace should exist', (t) => {
@@ -78,19 +75,19 @@ test('fastify.mariadb plugin', (batch) => {
       t.error(err)
       const sqlstring = fastify.mariadb.sqlstring
 
-      t.is(
+      t.equal(
         sqlstring.format('SELECT ? AS `now`', [1]),
         'SELECT 1 AS `now`'
       )
 
       const id = 'userId'
-      t.is(
+      t.equal(
         'SELECT * FROM users WHERE id = ' + sqlstring.escape(id),
         `SELECT * FROM users WHERE id = '${id}'`
       )
 
       const sorter = 'date'
-      t.is(
+      t.equal(
         'SELECT * FROM posts ORDER BY ' + sqlstring.escapeId('posts.' + sorter),
         'SELECT * FROM posts ORDER BY `posts`.`date`'
       )
@@ -137,7 +134,7 @@ test('fastify.mariadb should throw has already been registered', (t) => {
     })
 
   fastify.ready((err) => {
-    t.is(err.message, 'fastify.mariadb has already been registered')
+    t.equal(err.message, 'fastify.mariadb has already been registered')
     fastify.close()
   })
 })
@@ -159,7 +156,7 @@ test('fastify.mariadb.test should throw has already been registered', (t) => {
     })
 
   fastify.ready((err) => {
-    t.is(err.message, 'fastify.mariadb.test has already been registered')
+    t.equal(err.message, 'fastify.mariadb.test has already been registered')
     fastify.close()
   })
 })

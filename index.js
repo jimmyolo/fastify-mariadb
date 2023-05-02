@@ -7,8 +7,8 @@ function activatePool (options, cb) {
   const usePromise = options.promise
   delete options.promise
 
-  const mysql = usePromise ? require('mariadb/promise') : require('mariadb/callback')
-  const pool = mysql.createPool(options.connectionString || options)
+  const mariadb = usePromise ? require('mariadb/promise') : require('mariadb/callback')
+  const pool = mariadb.createPool(options.connectionString || options)
   const fastifyPool = {
     pool,
     query: pool.query.bind(pool),
@@ -40,7 +40,7 @@ function fastifyMariadb (fastify, options, next) {
     const pool = fastifyPool.pool
 
     if (usePromise) {
-      fastify.addHook('onClose', () => pool.end())
+      fastify.addHook('onClose', (fastify, done) => pool.end().then(done).catch(done))
     } else {
       fastify.addHook('onClose', (fastify, done) => pool.end(done))
     }
@@ -50,7 +50,7 @@ function fastifyMariadb (fastify, options, next) {
         fastify.decorate('mariadb', {})
       }
       if (fastify.mariadb[name]) {
-        return next(new Error('fastify.mariadb.' + name + ' has already been registered'))
+        return next(new Error(`fastify.mariadb.${name} has already been registered`))
       }
       fastify.mariadb[name] = fastifyPool
     } else {
