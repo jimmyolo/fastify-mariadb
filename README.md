@@ -103,7 +103,7 @@ More usage, please see [mariadb-connector-nodejs](https://github.com/MariaDB/mar
 
 ## Acknowledgements
 
-- Most of codes are copied from [fastify-mysql](https://github.com/fastify/fastify-mysql).
+- [fastify-mysql](https://github.com/fastify/fastify-mysql)
 
 
 ## License
