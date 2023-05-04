@@ -35,7 +35,7 @@
   "homepage": "https://github.com/jimmyolo/fastify-mariadb#readme",
   "dependencies": {
     "fastify-plugin": "^4.5.0",
-    "mariadb": "^3.1.1",
+    "mariadb": "^3.1.2",
     "sqlstring": "^2.3.3"
   },
   "devDependencies": {

@@ -12,8 +12,13 @@ Fastify MariaDB **connection Pool** plugin, with this you can share the same Mar
 
 Under the hood the official [MariaDB Node.js connector](https://github.com/MariaDB/mariadb-connector-nodejs) is used, the options that you pass to `register` will be passed to the MariaDB pool builder.
 
-**Note: start v2.x required Node.js 10+**
-**Note: start v3.x required Node.js 14+**
+### v2.x
+- min requirements
+  - `node >= 10`, `fastify >= 3`, `mariadb >= 2.4.2`
+
+### v3.x
+- min requirements
+  - `node >= 14`, `fastify >= 4`, `mariadb >= 3.1`
 
 ## Install
 
