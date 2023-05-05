@@ -3,12 +3,13 @@
   "version": "3.0.0-beta.1",
   "description": "Fastify MariaDB connection Pool plugin",
   "main": "index.js",
+  "types": "index.d.ts",
   "engines": {
     "node": ">= 14"
   },
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
-    "test": "tap test/*.test.js --cov",
+    "test": "tap test/*.test.js",
     "codecov:report": "tap test/*.test.js --coverage-report=text-lcov",
     "codecov:upload": "tap test/*.test.js --coverage-report=text-lcov && codecov",
     "lint": "standard --verbose | snazzy",
@@ -39,13 +40,15 @@
     "sqlstring": "^2.3.3"
   },
   "devDependencies": {
+    "@types/sqlstring": "^2.3.0",
     "codecov": "^3.8.3",
     "fastify": "^4.17.0",
     "husky": "^4.3.8",
     "release-it": "^15.10.3",
     "snazzy": "^9.0.0",
     "standard": "^17.0.0",
-    "tap": "^16.3.4"
+    "tap": "^16.3.4",
+    "tsd": "^0.28.1"
   },
   "release-it": {
     "git": {

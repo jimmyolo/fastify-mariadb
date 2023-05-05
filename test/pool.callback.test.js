@@ -96,8 +96,6 @@ test('fastify.mariadb plugin', (batch) => {
 })
 
 test('fastify.mariadb.test namespace should exist', (t) => {
-  t.plan(6)
-
   const fastify = Fastify()
   fastify
     .register(fastifyMariadb, {
@@ -110,9 +108,12 @@ test('fastify.mariadb.test namespace should exist', (t) => {
     t.ok(fastify.mariadb)
     t.ok(fastify.mariadb.test)
     t.ok(fastify.mariadb.test.pool)
+    t.ok(fastify.mariadb.test.query)
+    t.ok(fastify.mariadb.test.execute)
     t.ok(fastify.mariadb.test.getConnection)
     t.ok(fastify.mariadb.test.sqlstring)
     fastify.close()
+    t.end()
   })
 })
 

@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const { format, escape, escapeId } = require('sqlstring')
+const sqlstring = require('sqlstring')
 
 function activatePool (options, cb) {
   const usePromise = options.promise
@@ -11,13 +11,10 @@ function activatePool (options, cb) {
   const pool = mariadb.createPool(options.connectionString || options)
   const fastifyPool = {
     pool,
+    sqlstring,
     query: pool.query.bind(pool),
-    getConnection: pool.getConnection.bind(pool),
-    sqlstring: {
-      format,
-      escape,
-      escapeId
-    }
+    execute: pool.execute.bind(pool),
+    getConnection: pool.getConnection.bind(pool)
   }
   if (usePromise) {
     pool.query('select 1')
@@ -56,9 +53,11 @@ function fastifyMariadb (fastify, options, next) {
     } else {
       if (fastify.mariadb) {
         return next(new Error('fastify.mariadb has already been registered'))
-      } else {
-        fastify.mariadb = fastifyPool
       }
+    }
+
+    if (!fastify.mariadb) {
+      fastify.decorate('mariadb', fastifyPool)
     }
 
     next()
@@ -69,3 +68,5 @@ module.exports = fp(fastifyMariadb, {
   fastify: '4.x',
   name: 'fastify-mariadb'
 })
+module.exports.default = fastifyMariadb
+module.exports.fastifyMariadb = fastifyMariadb
