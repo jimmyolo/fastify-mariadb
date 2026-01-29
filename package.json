@@ -14,7 +14,8 @@
     "codecov:upload": "tap test/*.test.js --coverage-report=text-lcov && codecov",
     "lint": "standard --verbose | snazzy",
     "lint:fix": "standard --fix",
-    "release": "release-it"
+    "release": "release-it",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -42,7 +43,7 @@
   "devDependencies": {
     "@types/sqlstring": "^2.3.2",
     "fastify": "^4.29.1",
-    "husky": "^4.3.8",
+    "husky": "^9.0.11",
     "release-it": "^19.2.4",
     "snazzy": "^9.0.0",
     "standard": "^17.1.2",
@@ -55,11 +56,6 @@
     },
     "github": {
       "release": true
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
     }
   }
 }
