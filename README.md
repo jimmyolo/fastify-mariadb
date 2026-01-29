@@ -20,6 +20,10 @@ Under the hood the official [MariaDB Node.js connector](https://github.com/Maria
 - min requirements
   - `node >= 14`, `fastify >= 4`, `mariadb >= 3.1`
 
+### v4.x
+- min requirements
+  - `node >= 20`, `fastify >= 4`, `mariadb >= 3.1`
+
 ## Install
 
 ```

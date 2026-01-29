@@ -1,11 +1,11 @@
 {
   "name": "fastify-mariadb",
-  "version": "3.0.0-beta.1",
+  "version": "4.0.0-beta.1",
   "description": "Fastify MariaDB connection Pool plugin",
   "main": "index.js",
   "types": "index.d.ts",
   "engines": {
-    "node": ">= 18"
+    "node": ">= 20"
   },
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
