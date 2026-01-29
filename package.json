@@ -35,20 +35,18 @@
   },
   "homepage": "https://github.com/jimmyolo/fastify-mariadb#readme",
   "dependencies": {
-    "fastify-plugin": "^4.5.0",
+    "fastify-plugin": "^4.5.1",
     "mariadb": "^3.1.2",
     "sqlstring": "^2.3.3"
   },
   "devDependencies": {
-    "@types/sqlstring": "^2.3.0",
-    "codecov": "^3.8.3",
-    "fastify": "^4.17.0",
+    "@types/sqlstring": "^2.3.2",
+    "fastify": "^4.29.1",
     "husky": "^4.3.8",
-    "release-it": "^15.10.3",
+    "release-it": "^19.2.4",
     "snazzy": "^9.0.0",
-    "standard": "^17.0.0",
-    "tap": "^16.3.4",
-    "tsd": "^0.28.1"
+    "standard": "^17.1.2",
+    "tap": "^16.3.10"
   },
   "release-it": {
     "git": {
