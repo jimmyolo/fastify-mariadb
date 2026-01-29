@@ -4,126 +4,114 @@ const DB_PORT = process.env.DB_PORT || 3306
 const DB_USER = process.env.DB_USER || 'root'
 const DB_DB = process.env.DB_DB || 'mysql'
 
-const test = require('tap').test
+const test = require('node:test')
+const assert = require('node:assert/strict')
 const Fastify = require('fastify')
 const fastifyMariadb = require('../index')
 
-test('fastify.mariadb plugin', (batch) => {
-  let fastify
-  batch.beforeEach(() => {
-    fastify = Fastify()
-    fastify.register(fastifyMariadb, {
-      promise: true,
-
-      host: DB_HOST,
-      user: DB_USER,
-      database: 'mysql',
-      connectionLimit: 5,
-
-      // Compatibility option. causes Promise to return an array object, [rows, metadata].
-      // rather than the rows as JSON objects with a meta property.
-      metaAsArray: true
-    })
-  })
-
-  batch.afterEach(() => {
-    fastify.close()
-  })
-
-  batch.test('fastify.mariadb namespace should exist', (t) => {
-    t.plan(6)
-    fastify.ready((err) => {
-      t.error(err)
-      t.ok(fastify.mariadb)
-      t.ok(fastify.mariadb.pool)
-      t.ok(fastify.mariadb.query)
-      t.ok(fastify.mariadb.getConnection)
-      t.ok(fastify.mariadb.sqlstring)
-    })
-  })
-
-  batch.test('mariadb.pool.query', (t) => {
-    fastify.ready((err) => {
-      t.error(err)
-      fastify.mariadb.query('SELECT 1 AS `ping`').then(([results, metadata]) => {
-        t.ok(results[0].ping === 1)
-        t.ok(metadata)
-        t.end()
-      })
-    })
-  })
-
-  batch.test('pool.getConnection', (t) => {
-    t.plan(3)
-    fastify.ready((err) => {
-      t.error(err)
-      fastify.mariadb.getConnection().then((connection) => {
-        connection.query('SELECT 2 AS `ping`').then(([results]) => {
-          t.ok(results[0].ping === 2)
-          connection.release()
-        })
-      })
-      fastify.mariadb.query('SELECT 3 AS `ping`').then(([results]) => {
-        t.ok(results[0].ping === 3)
-      })
-    })
-  })
-
-  batch.test('synchronous sqlstring utils', (t) => {
-    t.plan(4)
-
-    fastify.ready((err) => {
-      t.error(err)
-      const sqlstring = fastify.mariadb.sqlstring
-
-      t.equal(
-        sqlstring.format('SELECT ? AS `now`', [1]),
-        'SELECT 1 AS `now`'
-      )
-
-      const id = 'userId'
-      t.equal(
-        'SELECT * FROM users WHERE id = ' + sqlstring.escape(id),
-        `SELECT * FROM users WHERE id = '${id}'`
-      )
-
-      const sorter = 'date'
-      t.equal(
-        'SELECT * FROM posts ORDER BY ' + sqlstring.escapeId('posts.' + sorter),
-        'SELECT * FROM posts ORDER BY `posts`.`date`'
-      )
-    })
-  })
-
-  batch.end()
-})
-
-test('fastify.mariadb.test namespace should exist', (t) => {
+const registerPromisePlugin = async (extraOptions = {}) => {
   const fastify = Fastify()
-  fastify
-    .register(fastifyMariadb, {
-      promise: true,
-      name: 'test',
-      connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_DB}`
-    })
-
-  fastify.ready((err) => {
-    t.error(err)
-    t.ok(fastify.mariadb)
-    t.ok(fastify.mariadb.test)
-    t.ok(fastify.mariadb.test.pool)
-    t.ok(fastify.mariadb.test.query)
-    t.ok(fastify.mariadb.test.execute)
-    t.ok(fastify.mariadb.test.getConnection)
-    t.ok(fastify.mariadb.test.sqlstring)
-    fastify.close()
-    t.end()
+  fastify.register(fastifyMariadb, {
+    promise: true,
+    host: DB_HOST,
+    user: DB_USER,
+    database: 'mysql',
+    connectionLimit: 5,
+    metaAsArray: true,
+    ...extraOptions
   })
+  await fastify.ready()
+  return fastify
+}
+
+test('fastify.mariadb namespace should exist', async () => {
+  const fastify = await registerPromisePlugin()
+  try {
+    assert.ok(fastify.mariadb)
+    assert.ok(fastify.mariadb.pool)
+    assert.ok(fastify.mariadb.query)
+    assert.ok(fastify.mariadb.getConnection)
+    assert.ok(fastify.mariadb.sqlstring)
+  } finally {
+    await fastify.close()
+  }
 })
 
-test('fastify.mariadb should throw has already been registered', (t) => {
-  t.plan(1)
+test('mariadb.pool.query (promise)', async () => {
+  const fastify = await registerPromisePlugin()
+  try {
+    const [results, metadata] = await fastify.mariadb.query('SELECT 1 AS `ping`')
+    assert.equal(results[0].ping, 1)
+    assert.ok(metadata)
+  } finally {
+    await fastify.close()
+  }
+})
 
+test('pool.getConnection (promise)', async () => {
+  const fastify = await registerPromisePlugin()
+  try {
+    const connection = await fastify.mariadb.getConnection()
+    const [results] = await connection.query('SELECT 2 AS `ping`')
+    assert.equal(results[0].ping, 2)
+    connection.release()
+
+    const [otherResults] = await fastify.mariadb.query('SELECT 3 AS `ping`')
+    assert.equal(otherResults[0].ping, 3)
+  } finally {
+    await fastify.close()
+  }
+})
+
+test('synchronous sqlstring utils', async () => {
+  const fastify = await registerPromisePlugin()
+  try {
+    const sqlstring = fastify.mariadb.sqlstring
+
+    assert.equal(
+      sqlstring.format('SELECT ? AS `now`', [1]),
+      'SELECT 1 AS `now`'
+    )
+
+    const id = 'userId'
+    assert.equal(
+      'SELECT * FROM users WHERE id = ' + sqlstring.escape(id),
+      `SELECT * FROM users WHERE id = '${id}'`
+    )
+
+    const sorter = 'date'
+    assert.equal(
+      'SELECT * FROM posts ORDER BY ' + sqlstring.escapeId('posts.' + sorter),
+      'SELECT * FROM posts ORDER BY `posts`.`date`'
+    )
+  } finally {
+    await fastify.close()
+  }
+})
+
+test('fastify.mariadb.test namespace should exist', async () => {
+  const fastify = Fastify()
+  fastify.register(fastifyMariadb, {
+    promise: true,
+    name: 'test',
+    connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_DB}`
+  })
+
+  try {
+    await fastify.ready()
+    assert.ok(fastify.mariadb)
+    assert.ok(fastify.mariadb.test)
+    assert.ok(fastify.mariadb.test.pool)
+    assert.ok(fastify.mariadb.test.query)
+    assert.ok(fastify.mariadb.test.execute)
+    assert.ok(fastify.mariadb.test.getConnection)
+    assert.ok(fastify.mariadb.test.sqlstring)
+  } finally {
+    await fastify.close()
+  }
+})
+
+test('fastify.mariadb should throw has already been registered', async () => {
   const fastify = Fastify()
   fastify
     .register(fastifyMariadb, {
@@ -135,15 +123,17 @@ test('fastify.mariadb should throw has already been registered', (t) => {
       connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_DB}`
     })
 
-  fastify.ready((err) => {
-    t.equal(err.message, 'fastify.mariadb has already been registered')
-    fastify.close()
-  })
+  try {
+    await assert.rejects(
+      fastify.ready(),
+      { message: 'fastify.mariadb has already been registered' }
+    )
+  } finally {
+    await fastify.close()
+  }
 })
 
-test('fastify.mariadb.test should throw has already been registered', (t) => {
-  t.plan(1)
-
+test('fastify.mariadb.test should throw has already been registered', async () => {
   const fastify = Fastify()
   fastify
     .register(fastifyMariadb, {
@@ -157,26 +147,28 @@ test('fastify.mariadb.test should throw has already been registered', (t) => {
       connectionString: `mariadb://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_DB}`
     })
 
-  fastify.ready((err) => {
-    t.equal(err.message, 'fastify.mariadb.test has already been registered')
-    fastify.close()
-  })
+  try {
+    await assert.rejects(
+      fastify.ready(),
+      { message: 'fastify.mariadb.test has already been registered' }
+    )
+  } finally {
+    await fastify.close()
+  }
 })
 
-test('should throw error when initial fail', (t) => {
-  t.plan(1)
-
+test('should throw error when initial fail', async () => {
   const fastify = Fastify()
   const invalidUser = 'invalid'
 
-  fastify
-    .register(fastifyMariadb, {
-      promise: true,
-      connectionString: `mariadb://${invalidUser}@${DB_HOST}:${DB_PORT}/${DB_DB}`
-    })
-
-  fastify.ready((err) => {
-    t.ok(err)
-    fastify.close()
+  fastify.register(fastifyMariadb, {
+    promise: true,
+    connectionString: `mariadb://${invalidUser}@${DB_HOST}:${DB_PORT}/${DB_DB}`
   })
+
+  try {
+    await assert.rejects(fastify.ready())
+  } finally {
+    await fastify.close()
+  }
 })

@@ -9,9 +9,9 @@
   },
   "scripts": {
     "mariadb": "docker run -d -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm mariadb",
-    "test": "tap test/*.test.js",
-    "codecov:report": "tap test/*.test.js --coverage-report=text-lcov",
-    "codecov:upload": "tap test/*.test.js --coverage-report=text-lcov && codecov",
+    "test": "node --test test/*.test.js",
+    "codecov:report": "c8 --reporter=text-lcov --reporter=text node --test test/*.test.js",
+    "codecov:upload": "c8 --reporter=text-lcov --reporter=text node --test test/*.test.js && codecov",
     "lint": "standard --verbose | snazzy",
     "lint:fix": "standard --fix",
     "release": "release-it",
@@ -42,12 +42,12 @@
   },
   "devDependencies": {
     "@types/sqlstring": "^2.3.2",
+    "c8": "^10.1.2",
     "fastify": "^4.29.1",
     "husky": "^9.0.11",
     "release-it": "^19.2.4",
     "snazzy": "^9.0.0",
-    "standard": "^17.1.2",
-    "tap": "^16.3.10"
+    "standard": "^17.1.2"
   },
   "release-it": {
     "git": {
